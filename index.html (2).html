@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Zimbabwe - Faculty of Medicine</title>
+
+
+    <style>
+        :root {
+            --bg-color: white;
+            --text-color: black;
+            --header-color: blue;
+            --link-bg: rgb(135, 135, 160);
+            --link-text: white;
+            --careers-color: navy;
+            --marquee-bg: orangered;
+        }
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: white;
+            --header-color: #4da6ff;
+            --link-bg: #2d2d3a;
+            --link-text: #e0e0e0;
+            --careers-color: #a0c4ff;
+            --marquee-bg: #ff6b35;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px; 
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .nav-menu {
+            position: sticky; top: 0; background: var(--link-bg); padding: 15px; z-index: 1000;
+        }
+        .nav-menu ul { list-style: none; display: flex; justify-content: center; flex-wrap: wrap; }
+        .nav-menu li { margin: 0 15px; }
+        .nav-menu a { color: var(--link-text); text-decoration: none; font-weight: bold; padding: 10px; border-radius: 5px; transition: background 0.3s; }
+        .nav-menu a:hover { background: rgba(255,255,255,0.2); }
+        .nav-toggle { display: none; background: var(--header-color); color: white; border: none; padding: 10px; cursor: pointer; }
+        @media (max-width: 768px) {
+            .nav-menu ul { flex-direction: column; display: none; }
+            .nav-menu.active ul { display: flex; }
+            .nav-toggle { display: block; }
+        }
+        
+        h1 { color: var(--header-color); margin: 20px 0; }
+        .hero-image { max-width: 100%; height: auto; border-radius: 10px; }
+        .dept-links { 
+            background: var(--link-bg); 
+            padding: 30px; 
+            margin: 20px 0; 
+            border-radius: 10px;
+            color: var(--link-text);
+        }
+        .dept-links a { 
+            display: block; 
+            margin: 15px 0; 
+            color: var(--link-text); 
+            text-decoration: none; 
+            font-size: 1.3em; 
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .dept-links a:hover { background: rgba(255,255,255,0.2); }
+        
+        .controls { margin: 30px 0; }
+        button { 
+            background: var(--header-color); 
+            color: white; 
+            border: none; 
+            padding: 15px 25px; 
+            margin: 10px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 1.1em;
+            transition: all 0.3s;
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        
+        .dynamic-text { 
+            background: linear-gradient(45deg, var(--header-color), var(--marquee-bg)); 
+            padding: 20px; 
+            border-radius: 10px; 
+            margin: 20px 0;
+            font-size: 1.2em;
+            min-height: 60px;
+        }
+        
+        .careers { color: var(--careers-color); margin: 40px 0; }
+        .careers ul { list-style: none; padding: 0; max-width: 600px; margin: 0 auto; }
+        .careers li { margin: 15px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; }
+        
+        .contact-form { 
+            max-width: 500px; 
+            margin: 40px auto; 
+            padding: 30px; 
+            background: rgba(255,255,255,0.1); 
+            border-radius: 15px;
+        }
+        .contact-form input, .contact-form textarea, .contact-form button {
+            width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc;
+        }
+        .contact-form textarea { height: 100px; resize: vertical; }
+        .success { background: #4CAF50; color: white; padding: 15px; border-radius: 5px; margin-top: 10px; display: none; }
+        
+        .mode-toggle { position: fixed; top: 20px; right: 20px; z-index: 1001; }
+        .marquee { background: var(--marquee-bg); color: white; padding: 15px; border-radius: 10px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <!-- Dark/Light Mode Toggle -->
+    <button class="mode-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+    
+    <!-- Interactive Navigation Menu -->
+    <nav class="nav-menu" id="navMenu">
+        <button class="nav-toggle" onclick="toggleNav()">☰ Menu</button>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#departments">Departments</a></li>
+            <li><a href="#careers">Careers</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <h1>THE UNIVERSITY OF ZIMBABWE WELCOMES YOU TO THE FACULTY OF MEDICINE</h1>
+        <img src="c:\Users\Admin\Desktop\it project\indexpic.jpg" alt="Faculty of Medicine Hero Image" class="hero-image" width="400" height="350">
+    </section>
+
+    <!-- Dynamic Controls -->
+    <div class="controls">
+        <button onclick="updateDynamicText()">✨ Update Welcome Message</button>
+        <button onclick="logToConsole()">📝 Log Visitor Info</button>
+        <button onclick="scrollToTop()">🏠 Back to Top</button>
+    </div>
+    
+    <div id="dynamicText" class="dynamic-text">
+        Click "Update Welcome Message" to see dynamic content!
+    </div>
+
+    <section id="departments" class="dept-links">
+        <h1 style="color: var(--link-text); font-style: italic;">CLICK ON THE PREFERRED DEPARTMENT LINK FOR MORE INFO</h1>
+        <a href= "c:\Users\Admin\Desktop\it project\department_of_physiology.html">Welcome to Physiology Department</a>
+        <a href= "c:\Users\Admin\Desktop\it project\department_of_anatomy.html">Welcome to Anatomy Department</a>
+        <a href= "c:\Users\Admin\Desktop\it project\department_of_biochemistry.html">Biochemistry Department welcomes you</a>
+    </section>
+
+    <section id="careers" class="careers">
+        <h1>List of Careers Associated with the Medical Departments</h1>
+        <ul>
+            <li>Biomedical Engineering</li>
+            <li>Biomedical Scientist</li>
+            <li>Audiologist</li>
+            <li>Radiographer</li>
+            <li>Physiotherapist</li>
+        </ul>
+    </section>
+
+    <section id="contact" class="contact-form">
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <div id="formSuccess" class="success">Thank you! Your message has been sent successfully! 🎉</div>
+    </section>
+
+    <h2 class="marquee">
+        <marquee>Be Part of Such a Vibrant University In ZIMBABWE </marquee>
+     </h2>
+
+    <script>
+        // 1. Dark/Light Mode Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const toggleBtn = document.querySelector('.mode-toggle');
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                toggleBtn.textContent = '🌙 Dark Mode';
+                console.log('Switched to Light Mode');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                toggleBtn.textContent = '☀️ Light Mode';
+                console.log('Switched to Dark Mode');
+            }
+        }
+
+        // 2. Dynamic Text Update
+        function updateDynamicText() {
+            const messages = [
+                "Welcome Future Doctors! 👨‍⚕️👩‍⚕️",
+                "Join University of Zimbabwe*s Medical Faculty! 🌟",
+                "Excellence in Medical Education Since established! 📚",
+                "Your Journey to Becoming a Healthcare Hero Starts Here! 🩺"
+            ];
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('dynamicText').textContent = randomMsg;
+            console.log('Dynamic text updated:', randomMsg);
+        }
+
+        // 3. Console Usage Example
+        function logToConsole() {
+            const visitorInfo = {
+                timestamp: new Date().toLocaleString(),
+                page: 'UZ Faculty of Medicine',
+                action: 'Visitor interaction logged'
+            };
+            console.table(visitorInfo);
+            console.log('%c Welcome to UZ Medicine Console! 🎓', 'color: blue; font-size: 16px;');
+            alert('Check the browser console (F12) for visitor logs! 📊');
+        }
+
+        // 4. Interactive Navigation Menu (Mobile)
+        function toggleNav() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Smooth scrolling for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 5. Form Handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Simulate form submission
+            console.log('Form submitted:', { name, email, message });
+            
+            // Show success message
+            document.getElementById('formSuccess').style.display = 'block';
+            this.reset();
+            
+            // Hide success after 5 seconds
+            setTimeout(() => {
+                document.getElementById('formSuccess').style.display = 'none';
+            }, 5000);
+        });
+
+        // 6. Scroll to Top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            console.log('Scrolled to top');
+        }
+
+        // Initialize - Log page load
+        console.log('UZ Faculty of Medicine page loaded successfully! 🚀');
+        console.log('%c Ready for medical excellence! 🩺', 'color: #4da6ff; font-size: 18px; font-weight: bold;');
+    </script>
+</body>
+</html>
